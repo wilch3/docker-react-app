@@ -1,4 +1,4 @@
-# Alteros Coding Challenge
+# Coding Challenge
  
 Coding challenge task.
 
