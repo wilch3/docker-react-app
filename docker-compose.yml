@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: postgres
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty
+
+  backend:
+    container_name: contacts_server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: vilt/contacts_server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/usr/src/app
+    links:
+      - db
+  
+  frontend:
+    container_name: contacts_client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: vilt/contacts_client
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+
+
